@@ -21,7 +21,6 @@ logging:
       com:
         bgrbarbosa:
           notification_api: info
-
 # Parâmetros de configurações para rodar em ambiente local
 ---
 spring:
