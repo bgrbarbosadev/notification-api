@@ -44,7 +44,6 @@ public class Notification {
 
     @PrePersist
     private void prePersist(){
-        dateTimeScheduling = LocalDateTime.now();
         statusNotification = Status.SCHEDULED;
     }
 
