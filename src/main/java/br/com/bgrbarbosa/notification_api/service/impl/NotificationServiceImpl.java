@@ -5,7 +5,7 @@ import br.com.bgrbarbosa.notification_api.model.Notification;
 import br.com.bgrbarbosa.notification_api.model.enums.Status;
 import br.com.bgrbarbosa.notification_api.repository.NotificationRepository;
 import br.com.bgrbarbosa.notification_api.service.NotificationService;
-import br.com.bgrbarbosa.notification_api.service.exception.NotFoundException;
+import br.com.bgrbarbosa.notification_api.service.exception.ResourceNotFound;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,20 +32,20 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public Notification searchNotificationById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Notification not found!!"));
+                .orElseThrow(() -> new ResourceNotFound("Notification not found!!"));
     }
 
     @Override
     public void deleteNotification(Long id) {
         Notification notification = repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Notification not found!!"));
+                .orElseThrow(() -> new ResourceNotFound("Notification not found!!"));
         repository.deleteById(id);
     }
 
     @Override
     public Notification cancelNotification(Long id) {
         Notification notification = repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Notification not found!!"));
+                .orElseThrow(() -> new ResourceNotFound("Notification not found!!"));
         notification.setStatusNotification(Status.CANCELLED);
         return repository.save(notification);
     }

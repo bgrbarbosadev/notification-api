@@ -39,9 +39,9 @@ public class NotificationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+    public ResponseEntity<String> delete(@PathVariable("id") Long id){
         service.deleteNotification(id);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.accepted().body("Successfully deleted!!");
     }
 
     @PutMapping("/{id}")
