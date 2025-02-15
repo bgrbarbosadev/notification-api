@@ -5,8 +5,9 @@ import br.com.bgrbarbosa.notification_api.controller.mapper.NotificationMapper;
 import br.com.bgrbarbosa.notification_api.model.Notification;
 import br.com.bgrbarbosa.notification_api.model.dto.NotificationDTO;
 import br.com.bgrbarbosa.notification_api.service.impl.NotificationServiceImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +17,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/notification")
 @RequiredArgsConstructor
+@Slf4j
 public class NotificationController {
 
     private final NotificationServiceImpl service;
 
     private final NotificationMapper mapper;
 
+
     @PostMapping
-    public ResponseEntity<NotificationDTO> insert(@RequestBody NotificationDTO notification){
+    public ResponseEntity<NotificationDTO> insert(@RequestBody @Valid NotificationDTO notification){
         Notification result = service.insertNotification(mapper.parseToEntity(notification));
         return ResponseEntity.ok(mapper.parseToDto(result));
     }
