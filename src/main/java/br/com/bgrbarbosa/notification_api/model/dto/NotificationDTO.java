@@ -13,6 +13,7 @@ public record NotificationDTO(
         Long id,
 
         @Email(message = "{email.message}")
+        @NotBlank(message = "{not.blank.message}")
         String email,
 
         @NotBlank(message = "{not.blank.message}")

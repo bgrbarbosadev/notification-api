@@ -29,7 +29,7 @@ spring:
     activate:
       on-profile: local
   datasource:
-    url: ${DATASOURCE_URL}
+    url: ${DATASOURCE_URL:local}
     username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
