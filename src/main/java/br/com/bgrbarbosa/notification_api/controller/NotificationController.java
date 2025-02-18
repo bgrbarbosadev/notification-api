@@ -50,8 +50,9 @@ public class NotificationController {
                             content = @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = NotificationDTO.class))))
             })
-    public ResponseEntity<List<Notification>> search(){
-        return ResponseEntity.ok(service.findAllNotification());
+    public ResponseEntity<List<NotificationDTO>> search(){
+        List<NotificationDTO> listDTO = mapper.parseToListDTO(service.findAllNotification());
+        return ResponseEntity.ok(listDTO);
     }
 
     @GetMapping("/{id}")
@@ -62,8 +63,10 @@ public class NotificationController {
                     @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceNotFound.class)))
             })
-    public ResponseEntity<Notification> searchById(@PathVariable("id") Long id){
-        return ResponseEntity.ok(service.searchNotificationById(id));
+    public ResponseEntity<NotificationDTO> searchById(@PathVariable("id") Long id){
+
+        Notification result = service.searchNotificationById(id);
+        return ResponseEntity.ok(mapper.parseToDto(result));
     }
 
     @DeleteMapping("/{id}")
@@ -87,8 +90,8 @@ public class NotificationController {
                     @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceNotFound.class)))
             })
-    public ResponseEntity<Notification> cancel(@PathVariable("id") Long id){
-        return ResponseEntity.ok().body(service.cancelNotification(id));
+    public ResponseEntity<NotificationDTO> cancel(@PathVariable("id") Long id){
+        return ResponseEntity.ok().body(mapper.parseToDto(service.cancelNotification(id)));
     }
 
 }
